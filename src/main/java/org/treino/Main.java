@@ -1,23 +1,17 @@
 package org.treino;
 
+import org.treino.buscar_dados_na_url.BuscaDados;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.Duration;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
-        HttpRequest request = HttpRequest.newBuilder()
-                .GET()
-                .uri(URI.create("https://pt.wikipedia.org/wiki/Pirâmides_egípcias"))
-                .build();
-
-        HttpClient httpClient = HttpClient.newBuilder().build();
-
-
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
-        System.out.println(response.body());
+        BuscaDados busca = new BuscaDados();
+        System.out.println(busca.retornaDados());
     }
 }
