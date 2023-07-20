@@ -15,5 +15,9 @@ public class Main {
 
         HttpClient httpClient = HttpClient.newBuilder().build();
 
+
+        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+        System.out.println(response.body());
     }
 }
