@@ -12,5 +12,8 @@ public class Main {
                 .GET()
                 .uri(URI.create("https://pt.wikipedia.org/wiki/Pirâmides_egípcias"))
                 .build();
+
+        HttpClient httpClient = HttpClient.newBuilder().build();
+
     }
 }
