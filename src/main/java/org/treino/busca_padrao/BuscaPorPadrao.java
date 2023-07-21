@@ -15,28 +15,24 @@ public class BuscaPorPadrao {
         BuscaDados urlBuscada = new BuscaDados();
         Path path = Path.of("C:\\Users\\João Pedro\\Desktop\\AREA_DE_TRABALHO\\PROGRAMACAO\\PROJETOS\\JAVA\\TreinandoHTTP\\src\\main\\java\\org\\treino\\teste.txt");
         String textoUrl = Files.readString(path);
-        /*String texto = "<p> joao </p>" +
-                "teste" +
-                "<p> pedro </p>";*/
+        //USADO O INICIO E FIM DE UMA TAG PARA FAZER O FATIAMENTO DA STRING
+        String p1 = "<p>?";
+        String p2 = "</p>?";
 
-        String parametro = "(<p>)(.*?)(</p>)";
-        Pattern padrao = Pattern.compile(parametro);
-        Matcher combinacao = padrao.matcher(textoUrl);
-        System.out.println("EXPRECAO BUSCADA: " + parametro);
+        Pattern padrao1 = Pattern.compile(p1);
+        Pattern padrao2 = Pattern.compile(p2);
+
+        Matcher combinacao1 = padrao1.matcher(textoUrl);
+        Matcher combinacao2 = padrao2.matcher(textoUrl);
+
+        System.out.println("EXPRECAO BUSCADA: (" + p1 +")(CONTEUDO)(" + p2 + ")");
         ArrayList<String> linhas = new ArrayList<>();
-        var cont = 0;
-        while (combinacao.find()){
-            if (combinacao.group() == "<p>" || combinacao.group() == "</p>"){
-            }else {
-                linhas.add(combinacao.group());
-            }
+
+        while (combinacao1.find()&& combinacao2.find()){
+            //AQUI FAZ O FATIAMENTO DA STRING DE ACORDO COM O INDICE ONDE TERMINA, ESSE SERA O INICIO, O PRIMEIRO PADRAO DE BUSC
+            //E ONDE COMECA O SEGUNDO PADRAO E ONDE IRA FAZER O FATIAMENTO DA STRING, ESSE SERA O FIM
+            linhas.add(textoUrl.substring(combinacao1.end(), combinacao2.start()));
         }
-
-        /*while (combinacao.find()) {
-            String textoFormatado = combinacao.group();
-            System.out.print("INDICE:[" + combinacao.start() + "]={" + textoFormatado + "} ");
-        }*/
-
         for (String linha: linhas) {
             System.out.println(linha);
         }

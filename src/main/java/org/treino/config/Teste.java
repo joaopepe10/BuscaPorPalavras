@@ -54,7 +54,7 @@ public class Teste {
             /*System.out.println("Indice Inicio = [" + buscaCombinacao.start() + "] Inidice Fim = [" + buscaCombinacao2.end() +
                     "] \nConteudo:\n{ \n\t" + buscaCombinacao.group() +
                     "\n}");*/
-            listaDeLinhas.add(textoUrl.substring(buscaCombinacao.start() + 3, buscaCombinacao2.start()));
+            listaDeLinhas.add(textoUrl.substring(buscaCombinacao.end(), buscaCombinacao2.start()));
         }
 
         for (String linha:listaDeLinhas){
