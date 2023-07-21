@@ -8,19 +8,14 @@ import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
-        BuscaDados busca = new BuscaDados();
-        var cont = 0;
-        String regex = "\\w";
-        String texto = "joao1, maria ,joana, marcos, jobovaldo, lucas, vitor 23-";
+        String regex = "0[xX][0-9a-f-A-F]";
+       String texto = "12 0xfb1 22 0xff 29 0xfa";
+       Pattern pattern = Pattern.compile(regex);
+       Matcher matcher = pattern.matcher(texto);
 
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(texto);
+       while (matcher.find()){
+           System.out.println("[INICIO/INDICE=" + matcher.start() + "][GRUPO=" + matcher.group()+"]");
+       }
 
-        System.out.println("TEXTO: " + texto);
-        System.out.println("\nEXPRESSAO: " + matcher.pattern());
-        System.out.println("POSICOES ENCONTRADAS: ");
-        while (matcher.find()){
-            System.out.print(matcher.start() + " ");
-        }
     }
 }
