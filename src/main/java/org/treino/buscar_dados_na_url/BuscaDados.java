@@ -11,10 +11,10 @@ public class BuscaDados  {
 
     private final static int TIMEOUT = 10;
 
-    public String retornaDados() throws IOException, InterruptedException{
+    public String retornaDados(String urlDesejada) throws IOException, InterruptedException{
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create("https://pt.wikipedia.org/wiki/Pirâmides_egípcias"))
+                .uri(URI.create(urlDesejada))
                 .timeout(Duration.ofSeconds(TIMEOUT))
                 .build();
 
@@ -24,4 +24,5 @@ public class BuscaDados  {
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
         return response.body();
     }
+
 }
