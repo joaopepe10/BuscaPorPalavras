@@ -9,15 +9,17 @@ import java.time.Duration;
 
 public class BuscaDados  {
 
+    private final static int TIMEOUT = 10;
+
     public String retornaDados() throws IOException, InterruptedException{
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
                 .uri(URI.create("https://pt.wikipedia.org/wiki/Pirâmides_egípcias"))
-                .timeout(Duration.ofSeconds(5))//DURACAO LIMITE QUE SERA FEITA A REQUISICAO
+                .timeout(Duration.ofSeconds(TIMEOUT))
                 .build();
 
         HttpClient httpClient = HttpClient.newBuilder()
-                .connectTimeout(Duration.ofSeconds(5))//DURACAO LIMITE QUE SERA FEITA A CONEXAO COM O SERVIDOR
+                .connectTimeout(Duration.ofSeconds(TIMEOUT))//DURACAO LIMITE QUE SERA FEITA A CONEXAO COM O SERVIDOR
                 .build();
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
         return response.body();
