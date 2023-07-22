@@ -6,22 +6,21 @@ import org.treino.buscar_dados_na_url.BuscaDados;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class BuscaPorPadrao {
+public class RemocaoDeTagsHtml {
 
     private String url;
 
-    public BuscaPorPadrao() {
+    public RemocaoDeTagsHtml() {
     }
 
-    public BuscaPorPadrao(String url) {
+    public RemocaoDeTagsHtml(String url) {
         this.url = url;
     }
 
-    public String buscaPorParagrafo() throws IOException, InterruptedException {
+    public String removeTags() throws IOException, InterruptedException {
         Document urlBuscada = Jsoup.connect("https://pt.wikipedia.org/wiki/Pirâmides_egípcias").get();
         String textoUrl = urlBuscada.toString();
         //USADO O INICIO E FIM DE UMA TAG PARA FAZER O FATIAMENTO DA STRING
@@ -49,7 +48,7 @@ public class BuscaPorPadrao {
         return novoTexto;
     }
 
-    public String buscaPorParagrafo(String urlArg) throws IOException, InterruptedException {
+    public String removeTags(String urlArg) throws IOException, InterruptedException {
         BuscaDados urlBuscada = new BuscaDados();
         String textoUrl = urlBuscada.retornaDados(urlArg);
         //USADO O INICIO E FIM DE UMA TAG PARA FAZER O FATIAMENTO DA STRING
@@ -75,23 +74,6 @@ public class BuscaPorPadrao {
             novoTexto += "\n" + linha;
         }
         return novoTexto;
-    }
-
-    public String buscaPorTitulo() throws IOException, InterruptedException {
-        BuscaPorPadrao b = new BuscaPorPadrao("https://pt.wikipedia.org/wiki/Pirâmides_egípcias");
-        String texto = b.buscaPorParagrafo();
-        String regex = "(<a[^>]*?\\stitle\\s*=)(\\s*\")(.*?)\"[^>]*?>(.*?)(<\\/a>)";
-        Pattern p1 = Pattern.compile(regex);
-        Matcher combincacao = p1.matcher(texto);
-        List<String> novoTexto = new ArrayList<>();
-
-        while (combincacao.find()){
-            novoTexto.add(combincacao.group());
-        }
-        String resposta = "";
-        for (String l: novoTexto)
-        resposta += "\n" + l;
-        return resposta;
     }
 
     public String getUrl() {
