@@ -77,6 +77,25 @@ public class Teste {
         System.out.println(novoTexto);*/
 
         Document document = Jsoup.connect("https://pt.wikipedia.org/wiki/Pirâmides_egípcias").get();
-        System.out.println(document.getElementsByTag("a"));
+        //System.out.println(document.getElementsByTag("a"));
+
+
+        // Conecta e obtém o documento HTML da URL
+        Document urlBuscada = Jsoup.connect("https://pt.wikipedia.org/wiki/Pirâmides_egípcias").get();
+
+        // Obtém todas as tags <p> e seus conteúdos
+        Elements paragrafos = urlBuscada.getElementsByTag("p");
+
+        // Transforma os parágrafos em um texto incluindo todas as tags
+        String textoUrl = paragrafos.toString();
+
+        // Retira as tags do texto para uma leitura melhor
+        //textoUrl = textoUrl.replaceAll("<[^>]+>", "");
+
+        // Troca o conteúdo da tag <a> somente pelo título
+       // textoUrl = textoUrl.replaceAll("<a[^>]*>(.*?)</a>", "$1");
+
+        // Retorna o texto resultante
+        System.out.println(textoUrl);
     }
-}
+    }
