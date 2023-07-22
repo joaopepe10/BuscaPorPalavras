@@ -1,5 +1,7 @@
 package org.treino.busca_padrao;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.treino.buscar_dados_na_url.BuscaDados;
 
 import java.io.IOException;
@@ -20,8 +22,8 @@ public class BuscaPorPadrao {
     }
 
     public String buscaPorParagrafo() throws IOException, InterruptedException {
-        BuscaDados urlBuscada = new BuscaDados();
-        String textoUrl = urlBuscada.retornaDados(getUrl());
+        Document urlBuscada = Jsoup.connect("https://pt.wikipedia.org/wiki/Pirâmides_egípcias").get();
+        String textoUrl = urlBuscada.toString();
         //USADO O INICIO E FIM DE UMA TAG PARA FAZER O FATIAMENTO DA STRING
         String p1 = "<p>?";
         String p2 = "</p>?";

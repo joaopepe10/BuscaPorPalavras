@@ -82,7 +82,6 @@ public class Teste {
         System.out.println(novoTexto);*/
 
         Document document = Jsoup.connect("https://pt.wikipedia.org/wiki/Pirâmides_egípcias").get();
-
         System.out.println(document.getElementsByTag("a"));
     }
 }
