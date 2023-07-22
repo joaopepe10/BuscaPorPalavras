@@ -6,7 +6,7 @@ import java.io.IOException;
 
 
 public class Main {
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException{
         RemocaoDeTagsHtml buscarUrl = new RemocaoDeTagsHtml();
         System.out.println(buscarUrl.removeTags());
     }
