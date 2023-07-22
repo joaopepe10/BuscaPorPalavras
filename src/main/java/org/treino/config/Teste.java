@@ -1,6 +1,5 @@
 package org.treino.config;
 
-import org.treino.buscar_dados_na_url.BuscaDados;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,11 +16,7 @@ import org.jsoup.select.Elements;
 public class Teste {
 
     public static void main(String[] args) throws IOException {
-        BuscaDados urlBuscada = new BuscaDados();
-        Path path = Path.of("C:\\Users\\João Pedro\\Desktop\\AREA_DE_TRABALHO\\PROGRAMACAO\\PROJETOS\\JAVA\\TreinandoHTTP\\src\\main\\java\\org\\treino\\teste.txt");
-        String textoUrl = Files.readString(path);
 
-        List<String> listaDeLinhas = new ArrayList<>();
 
        /* String regex = "([AC]{2}\s)(.*?)([BAC]{3})";
         String textoBuscado = " AC " +
