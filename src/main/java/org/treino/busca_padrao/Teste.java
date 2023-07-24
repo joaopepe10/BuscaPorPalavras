@@ -15,17 +15,15 @@ public class Teste {
         String regex = termo;
 
 
-        boolean validacao = true;
         for (int i = 0; i < termos.length ; ++i ){
-            if (i != 0){
-                Pattern padrao = Pattern.compile(termos[i]);
+            if(i == 0){
+                Pattern padrao = Pattern.compile(termo);
                 Matcher combinacao = padrao.matcher(txt);
                 while (combinacao.find()){
                     contador[i] += 1 + combinacao.groupCount();
                 }
-            }
-            if(i == 0){
-                Pattern padrao = Pattern.compile(termo);
+            }else {
+                Pattern padrao = Pattern.compile(termos[i]);
                 Matcher combinacao = padrao.matcher(txt);
                 while (combinacao.find()){
                     contador[i] += 1 + combinacao.groupCount();
