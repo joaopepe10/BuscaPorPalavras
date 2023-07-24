@@ -5,15 +5,15 @@ import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 
-public class RemocaoDeTagsHtmlImp implements RemocaoDeTagsHtml {
+public class FiltroDePaginaImp implements FiltroDePagina {
 
     private String url;
 
-    public RemocaoDeTagsHtmlImp() {
+    public FiltroDePaginaImp() {
 
     }
 
-    public RemocaoDeTagsHtmlImp(String url) {
+    public FiltroDePaginaImp(String url) {
         this.url = url;
     }
 
@@ -46,6 +46,12 @@ public class RemocaoDeTagsHtmlImp implements RemocaoDeTagsHtml {
         textoUrl = textoUrl.replaceAll("<[^>]+>", "");
 
         return textoUrl;
+    }
+
+    public String busca(String termo, String urlBuscada) throws IOException {
+
+        String texto = this.removeTags(urlBuscada);
+        return texto;
     }
 
 

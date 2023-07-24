@@ -1,13 +1,13 @@
 package org.treino;
 
-import org.treino.busca_padrao.RemocaoDeTagsHtmlImp;
+import org.treino.busca_padrao.FiltroDePaginaImp;
 
 import java.io.IOException;
 
 
 public class Main {
     public static void main(String[] args) throws IOException{
-        RemocaoDeTagsHtmlImp buscarUrl = new RemocaoDeTagsHtmlImp();
-        System.out.println(buscarUrl.removeTags("http://www.sillion.com.br/blog/?p=1760&rdst_srcid=2893878"));
+        FiltroDePaginaImp filtro = new FiltroDePaginaImp();
+        filtro.busca("Teste", "https://pt.wikipedia.org/wiki/Albert_Einstein");
     }
 }
