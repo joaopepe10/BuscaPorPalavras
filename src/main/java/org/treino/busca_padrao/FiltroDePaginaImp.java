@@ -4,6 +4,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class FiltroDePaginaImp implements FiltroDePagina {
 
@@ -49,7 +50,7 @@ public class FiltroDePaginaImp implements FiltroDePagina {
     }
 
     public String busca(String termo, String urlBuscada) throws IOException {
-
+        ArrayList<String> termos = new ArrayList<>();
         String texto = this.removeTags(urlBuscada);
         return texto;
     }
