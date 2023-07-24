@@ -5,5 +5,5 @@ import java.io.IOException;
 public interface FiltroDePagina {
 
     String removeTags() throws IOException;
-    String busca() throws IOException;
+    StringBuffer busca() throws IOException;
 }

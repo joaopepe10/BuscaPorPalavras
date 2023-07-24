@@ -4,7 +4,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class FiltroDePaginaImp implements FiltroDePagina {
 
@@ -24,33 +25,48 @@ public class FiltroDePaginaImp implements FiltroDePagina {
         // CONNECT PEGA A URL E A TRANSFORMA EM UM TEXTO INCLUINDO TODAS AS TAGS
         // URL PADRAO
         Document urlBuscada = Jsoup.connect(getUrl()).get();
-        // PASSADO COMO PARAMETRO A TAG QUE DESEJA OBTER O CONTEUDO
-        String textoUrl = urlBuscada.getElementsByTag("p").toString();
 
-        // COM AUXILIO DO SITE https://regexr.com PARA FAZER AS EXPRESSOES REGULARES E VIZUALIZAR EM TEMPO REAL OQUE A EXPRESSAO SELECIONA
-        // RETIRANDO AS TAGS DO TEXTO PARA UMA LEITURA MELHOR
-        // FAZ A CAPTURA DO CONTEUDO DA TAG A E AGRUPO O TITLE E FAZ A TROCA DESSE CONTEUDO PELO GRUPO 1 QUE ESTA ENTRE PARENTESES
+        // PASSADO COMO PARAMETRO A TAG QUE DESEJA OBTER O CONTEUDO
+        String textoUrl = urlBuscada.body().text();
+
+        /*
+        * COM AUXILIO DO SITE https://regexr.com PARA FAZER AS EXPRESSOES REGULARES E VIZUALIZAR EM TEMPO REAL OQUE A EXPRESSAO SELECIONA
+        * RETIRANDO AS TAGS DO TEXTO PARA UMA LEITURA MELHOR
+        * FAZ A CAPTURA DO CONTEUDO DA TAG A E AGRUPO O TITLE E FAZ A TROCA DESSE CONTEUDO PELO GRUPO 1 QUE ESTA ENTRE PARENTESES
+        */
         textoUrl = textoUrl.replaceAll("<a[^>]*>(.*?)</a>", "$1");
         textoUrl = textoUrl.replaceAll("<[^>]+>", "");
 
         return textoUrl;
     }
 
-    public String busca() throws IOException {
-
-        // SEPARANDO CADA PALAVRA QUE TEM UM ESPACO ENTRE ELAS PARA FAZER A BUSCA POR TODAS
-        String[] termos = getTermo().split("\s");
-
-        //CONTADOR SERA ASSOCIADO A CADA TERMO, INCLUINDO O TERMO QUE ESTA COMO ARGUMENTO
-        Integer[] contador = new Integer[termos.length + 1];
+    public StringBuffer busca() throws IOException {
         String texto = this.removeTags();
-
-        // FORMATANDO A RESPOSTA, MOSTRANDO TODAS AS BUSCAS POSSIVEIS!
-        String respostaFormatada = termo;
-        for (String te: termos){
-            respostaFormatada += "\n" + te;
+        String[] termos = new String[getTermo().split("\\s").length + 1];
+        int[] contadores = new int[termos.length];
+        String[] t = getTermo().split("\\s");
+        for (int i = 0; i< termos.length;++i){
+            if(i == 0){
+                termos[i] = getTermo().trim();
+            }else {
+                termos[i] = t[i-1].trim();
+            }
         }
-        return respostaFormatada;
+
+        for (int i = 0; i < termos.length ; ++i ){
+            Pattern padrao = Pattern.compile("(\\s|\\W)" + termos[i] + "(\\W|\\s)");
+            Matcher combinacao = padrao.matcher(texto);
+            while (combinacao.find()){
+                contadores[i] += 1;
+            }
+        }
+
+        StringBuffer textoFormatado = new StringBuffer();
+        for (int i = 0; i < termos.length ; ++i){
+            textoFormatado.append("\nPalavra [").append(termos[i]).append("] encontrada ").append(contadores[i]).append(" vezes!");
+        }
+
+    return textoFormatado;
     }
 
 
@@ -58,15 +74,8 @@ public class FiltroDePaginaImp implements FiltroDePagina {
         return url;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
     public String getTermo() {
         return termo;
     }
 
-    public void setTermo(String termo) {
-        this.termo = termo;
-    }
 }
