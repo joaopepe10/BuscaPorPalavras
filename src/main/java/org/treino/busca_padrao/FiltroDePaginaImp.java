@@ -19,12 +19,12 @@ public class FiltroDePaginaImp implements FiltroDePagina {
     }
 
     public FiltroDePaginaImp(String url, String termo) {
-        if (url.contains("https://")){
-            this.url = url.trim();
-        } else if (url.contains("http://")) {
-            this.url = url.replaceFirst("p", "ps");
-        } else {
+        Pattern padrao = Pattern.compile("(^[https://]{0,8})");
+        Matcher combinacao = padrao.matcher(url);
+        if (!combinacao.find()){
             this.url = "https://" + url.trim();
+        } else {
+            this.url = url.replaceFirst("(^[https://]{0,8})", "https://").trim();
         }
         this.termo = termo.trim();
     }
