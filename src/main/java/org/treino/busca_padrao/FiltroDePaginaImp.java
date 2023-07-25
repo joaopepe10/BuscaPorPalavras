@@ -19,8 +19,12 @@ public class FiltroDePaginaImp implements FiltroDePagina {
     }
 
     public FiltroDePaginaImp(String url, String termo) {
-        this.url = url;
-        this.termo = termo;
+        if ("https://".contains(url)){
+            this.url = url.trim();
+        }else {
+            this.url = "https://" + url.trim();
+        }
+        this.termo = termo.trim();
     }
     @Override
     public String removeTags() throws IOException{
@@ -78,7 +82,11 @@ public class FiltroDePaginaImp implements FiltroDePagina {
     }
 
     public void setUrl(String url) {
-        this.url = url;
+        if ("https://".contains(url)){
+            this.url = url.trim();
+        }else {
+            this.url = "https://" + url.trim();
+        }
     }
 
     public String getTermo() {
@@ -86,6 +94,6 @@ public class FiltroDePaginaImp implements FiltroDePagina {
     }
 
     public void setTermo(String termo) {
-        this.termo = termo;
+        this.termo = termo.trim();
     }
 }
