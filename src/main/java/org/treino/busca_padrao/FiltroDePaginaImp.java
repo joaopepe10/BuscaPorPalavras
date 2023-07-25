@@ -19,9 +19,11 @@ public class FiltroDePaginaImp implements FiltroDePagina {
     }
 
     public FiltroDePaginaImp(String url, String termo) {
-        if ("https://".contains(url)){
+        if (url.contains("https://")){
             this.url = url.trim();
-        }else {
+        } else if (url.contains("http://")) {
+            this.url = url.replaceFirst("p", "ps");
+        } else {
             this.url = "https://" + url.trim();
         }
         this.termo = termo.trim();
