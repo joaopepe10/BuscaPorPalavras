@@ -41,52 +41,12 @@ public class FiltroDePaginaImp implements FiltroDePagina {
         return textoUrl;
     }
     @Override
-    public String busca() throws IOException {
-        String texto = this.removeTags();
-        String[] termos = new String[getTermo().split("\\s").length + 1];//<-
-        int[] contadores = new int[termos.length];
-        String[] t = getTermo().split("\\s");
-
-        if (termos.length == 1){
-            Pattern padrao = Pattern.compile("(\\s|\\W)" + getTermo() + "(\\W|\\s)");
-            Matcher combinacao = padrao.matcher(texto);
-            while (combinacao.find()){
-                contadores[0] += 1;
-            }
-            return "Palavra [" + getTermo() + "] encontrada" + contadores[0] + " vezes!";
-        }else {
-            for (int i = 0; i < termos.length;++i){
-                if(i == 0){
-                    termos[i] = getTermo();
-                }else {
-                    termos[i] = t[i-1];
-                }
-            }
-
-            for (int i = 0; i < termos.length ; ++i ){
-                Pattern padrao = Pattern.compile("(\\s|\\W)" + termos[i] + "(\\W|\\s)");
-                Matcher combinacao = padrao.matcher(texto);
-                while (combinacao.find()){
-                   contadores[i] += 1;
-                }
-            }
-            String textoFormatado = "";
-            for (int i = 0; i < termos.length ; ++i){
-                textoFormatado += "\nPalavra [" + termos[i] +"] encontrada " + contadores[i] + " vezes";
-            }
-
-            return textoFormatado;
-        }
-
-
-
-    }
-
-    public String buscaDe() throws IOException {
+    public StringBuilder busca() throws IOException {
         String texto = this.removeTags();
         List<String> termos = new ArrayList<>();
         List<Integer> contadores = new ArrayList<>();
         String[] termoFatiado = getTermo().split("\\s");
+        StringBuilder textoFormatado = new StringBuilder();
 
         for (int i = 0; i < termoFatiado.length + 1; ++i) {
             int contador = 0;
@@ -107,13 +67,9 @@ public class FiltroDePaginaImp implements FiltroDePagina {
                     }
                     contadores.add(contador);
                 }
+            textoFormatado.append("\nPalavra [").append(termos.get(i)).append("] encontrada ").append(contadores.get(i)).append(" vezes");
             }
 
-
-            String textoFormatado = "";
-            for (int i = 0; i < termos.size() ; ++i){
-                textoFormatado += "\nPalavra [" + termos.get(i) +"] encontrada " + contadores.get(i) + " vezes";
-            }
             return textoFormatado;
     }
 
