@@ -84,10 +84,12 @@ public class FiltroDePaginaImp implements FiltroDePagina {
     }
 
     public void setUrl(String url) {
-        if ("https://".contains(url)){
-            this.url = url.trim();
-        }else {
+        Pattern padrao = Pattern.compile("(^[https://]{0,8})");
+        Matcher combinacao = padrao.matcher(url);
+        if (!combinacao.find()){
             this.url = "https://" + url.trim();
+        } else {
+            this.url = url.replaceFirst("(^[https://]{0,8})", "https://").trim();
         }
     }
 
