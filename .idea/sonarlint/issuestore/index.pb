@@ -1,9 +1,9 @@
 
-w
-G.idea/sonarlint/issuestore/4/4/442292b8a7efeabbe4cc176709b833b1792140ec,8\6\863e0292fd7e9b3e74dafd6cc01f73ba76346482
-Å
-Q.idea/sonarlint/securityhotspotstore/4/4/442292b8a7efeabbe4cc176709b833b1792140ec,2\c\2cabb939da04d3de3a200bf2b575690e1a16316d
-W
-'src/main/java/org/treino/menu/Menu.java,8\1\81b0f5bd745ddc2bdb5d8ca8ad3cd25ae4b7fffd
-Z
-*src/main/java/org/treino/menu/MenuImp.java,d\8\d81f891b0bf80c3419209de87f4c64929a36cf72
+i
+9src/main/java/org/treino/busca_padrao/FiltroDePagina.java,4\a\4aa71646e348142dffb38bc0d10a755913d2882e
+9
+	Readme.md,0\c\0c1945d7443c2e154bd3e421c0d438bd4086d8c3
+p
+@src/test/java/org/treino/busca_padrao/FiltroDePaginaImpTest.java,4\b\4b2de300c1b998c725a0734cb3a76a0d1ef2831d
+l
+<src/main/java/org/treino/busca_padrao/FiltroDePaginaImp.java,5\9\59d7e2bcc5f391d4d6b391ffcb01bca0bc2dae3b
