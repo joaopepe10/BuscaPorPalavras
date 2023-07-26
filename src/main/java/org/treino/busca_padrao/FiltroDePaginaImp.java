@@ -73,7 +73,7 @@ public class FiltroDePaginaImp implements FiltroDePagina {
                     }
                     contadores.add(contador);
                 }
-            textoFormatado.append("\nPalavra [").append(termos.get(i)).append("] encontrada ").append(contadores.get(i)).append(" vezes");
+            textoFormatado.append("\nPalavra [").append(termos.get(i)).append("] encontrada ").append(contadores.get(i)).append(" vezes.");
             }
 
             return textoFormatado;
