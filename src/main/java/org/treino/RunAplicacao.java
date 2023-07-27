@@ -9,15 +9,11 @@ import java.util.Scanner;
 public class RunAplicacao {
     public static void main(String[] args) throws IOException{
         Scanner in = new Scanner(System.in);
-        Scanner input = new Scanner(System.in);
         try{
-            System.out.println("Digite uma url:");
-            String url = in.next();
-
-            in.nextLine();
-
-            System.out.println("Digite uma palavra para buscar:");
-            String palavra = in.nextLine();
+            String url = "https://es.wikipedia.org/wiki/Pirámides_de_Egipto";
+            System.out.println("URL UTILIZADA FOI ESTA: " + url);
+            String palavra = "bloques de piedra";
+            System.out.println("Palavras utilizadas na busca: " + palavra);
 
             FiltroDePaginaImp filtro = new FiltroDePaginaImp(url, palavra);
             System.out.println(filtro.busca());
