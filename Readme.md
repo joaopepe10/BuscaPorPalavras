@@ -30,3 +30,12 @@ a depedência é so ir no `pom.xml` e adicionar tbm a dependência:
 -> Gostei muito desse desafio pois aprendi muitas coisas com ele, inclusive as famosas expreções regulares, mais conhecidas como
 `REGEX`, quebrei a cabeça no começo para entender, porém peguei o jeito .
 
+# Como acessar com o Docker: 
+
+Aplicação dockerizada, para acessar a mesma pode se usar o comando :
+
+`docker pull joaopepe10/sillion:sem-entrada-de-dados`
+
+Quando baixar a image, use o comando: 
+
+`docker run it --name projeto joaopepe10/sillion:sem-entrada-de-dados`
