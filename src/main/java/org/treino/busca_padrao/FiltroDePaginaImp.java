@@ -19,32 +19,37 @@ public class FiltroDePaginaImp implements FiltroDePagina {
     }
 
     public FiltroDePaginaImp(String url, String termo) {
+        this.url = url;
+        this.termo = termo.trim();
+    }
+
+    public String validaUrl(String url){
         Pattern padrao = Pattern.compile("(^[https://]{0,8})");
         Matcher combinacao = padrao.matcher(url);
         if (!combinacao.find()){
-            this.url = "https://" + url.trim();
+            url = "https://" + url.trim();
         } else {
-            this.url = url.replaceFirst("(^[https://]{0,8})", "https://").trim();
+            url = url.replaceFirst("(^[https://]{0,8})", "https://").trim();
         }
-        this.termo = termo.trim();
+        return url;
     }
     @Override
     public String removeTags() throws IOException{
-        // CONNECT PEGA A URL E A TRANSFORMA EM UM TEXTO INCLUINDO TODAS AS TAGS
-        // URL PADRAO
-        Document urlBuscada = Jsoup.connect(getUrl()).get();
-
-        // PASSADO COMO PARAMETRO A TAG QUE DESEJA OBTER O CONTEUDO
-        String textoUrl = urlBuscada.body().text();
-        /*
-        * COM AUXILIO DO SITE https://regexr.com PARA FAZER AS EXPRESSOES REGULARES E VIZUALIZAR EM TEMPO REAL OQUE A EXPRESSAO SELECIONA
-        * RETIRANDO AS TAGS DO TEXTO PARA UMA LEITURA MELHOR
-        * FAZ A CAPTURA DO CONTEUDO DA TAG A E AGRUPO O TITLE E FAZ A TROCA DESSE CONTEUDO PELO GRUPO 1 QUE ESTA ENTRE PARENTESES
-        */
-        textoUrl = textoUrl.replaceAll("<a[^>]*>(.*?)</a>", "$1");
-        textoUrl = textoUrl.replaceAll("<[^>]+>", "");
-
+        String urlValidada = getUrl();
+       Document urlBuscada = Jsoup.connect(urlValidada).get();
+       String textoUrl = urlBuscada.body().text();
+       textoUrl = Jsoup.parse(textoUrl).text();
         return textoUrl;
+    }
+
+    public int contarOcorrencias(String texto, String palavra){
+        Pattern padrao = Pattern.compile("(\\s|\\W)" + palavra + "(\\W|\\s)");
+        Matcher combinacao = padrao.matcher(texto);
+        int contador = 0;
+        while (combinacao.find()){
+            contador++;
+        }
+        return contador;
     }
     @Override
     public StringBuilder busca() throws IOException {
@@ -54,27 +59,15 @@ public class FiltroDePaginaImp implements FiltroDePagina {
         String[] termoFatiado = getTermo().split("\\s");
         StringBuilder textoFormatado = new StringBuilder();
 
-        for (int i = 0; i < termoFatiado.length + 1; ++i) {
-            int contador = 0;
-                if (i == 0) {
-                    termos.add(getTermo());
-                    Pattern padrao = Pattern.compile("(\\s|\\W)" + termos.get(i) + "(\\W|\\s)");
-                    Matcher combinacao = padrao.matcher(texto);
-                    while (combinacao.find()) {
-                        contador++;
-                    }
-                    contadores.add(contador);
-                } else {
-                    termos.add(termoFatiado[i-1]);
-                    Pattern padrao = Pattern.compile("(\\s|\\W)" + termos.get(i) + "(\\W|\\s)");
-                    Matcher combinacao = padrao.matcher(texto);
-                    while (combinacao.find()) {
-                        contador++;
-                    }
-                    contadores.add(contador);
-                }
-            textoFormatado.append("\nPalavra [").append(termos.get(i)).append("] encontrada ").append(contadores.get(i)).append(" vezes.");
-            }
+        for (String termo : termoFatiado){
+            int contador = contarOcorrencias(texto, termo);
+            termos.add(termo);
+            contadores.add(contador);
+            textoFormatado.append("\nPalavra [")
+                          .append(termo)
+                          .append("] encontrada ")
+                          .append(contador).append(" vezes.");
+        }
 
             return textoFormatado;
     }
@@ -84,13 +77,7 @@ public class FiltroDePaginaImp implements FiltroDePagina {
     }
 
     public void setUrl(String url) {
-        Pattern padrao = Pattern.compile("(^[https://]{0,8})");
-        Matcher combinacao = padrao.matcher(url);
-        if (!combinacao.find()){
-            this.url = "https://" + url.trim();
-        } else {
-            this.url = url.replaceFirst("(^[https://]{0,8})", "https://").trim();
-        }
+        this.url = url;
     }
 
     public String getTermo() {
